@@ -43,7 +43,7 @@
 
 	require_once($config);
     	$connection = ssh2_connect(IP, PORT);
-    	ssh2_auth_password($connection, LOGIN, PASSWARD);
+    	ssh2_auth_password($connection, LOGIN, PASSWORD);
 	echo "Configuration found and set\n";
 
 	$machine = array_merge($machineList_static, $machineList_dynamic);

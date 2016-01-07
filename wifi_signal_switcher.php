@@ -42,8 +42,8 @@
 	echo "Program Started.\n";
 
 	require_once($config);
-    $connection = ssh2_connect(IP, PORT);
-    ssh2_auth_password($connection, LOGIN, PASSWARD);
+    	$connection = ssh2_connect(IP, PORT);
+    	ssh2_auth_password($connection, LOGIN, PASSWARD);
 	echo "Configuration found and set\n";
 
 	$machine = array_merge($machineList_static, $machineList_dynamic);
@@ -52,8 +52,8 @@
 
 	echo "Checking current emit state...\n";
 	$run = ssh2_exec($connection, "uci show wireless.@wifi-device[$device_id].txpower");
-    stream_set_blocking($run, true);
-    $emit_state = intval(substr(stream_get_contents($run), 24));
+    	stream_set_blocking($run, true);
+    	$emit_state = intval(substr(stream_get_contents($run), 24));
 	fclose($run);
 	echo "Checking completed.\n";
 

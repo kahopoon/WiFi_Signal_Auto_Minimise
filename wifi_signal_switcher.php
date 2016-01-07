@@ -69,16 +69,12 @@
 	}
 
 	function detectedOnline($target) {
-		foreach ($target as $key => $value)
-		{
-			if (pingAddress($value)) 
-			{
+		foreach ($target as $key => $value) {
+			if (pingAddress($value)) {
 				$GLOBALS['first_detectedOnline_ip'] = $value; 
 				$GLOBALS['first_detectedOnline_name'] = $key; 
-				return true;
-			}
-		}
-		return false;
+				return true;}
+		} return false;
 	}
 	
 	while (true)
@@ -99,8 +95,8 @@
 				{
 					echo $first_detectedOnline_ip." ($first_detectedOnline_name) Confirmed consistent online, changing into high emit...\n";
 					$run = ssh2_exec($connection, "uci set wireless.@wifi-device[$device_id].txpower=$high_rate; uci commit wireless; wifi down radio$device_id; wifi up radio$device_id");
-       				fclose($run);
-       				$low_emit = false;
+       					fclose($run);
+       					$low_emit = false;
 					echo "High emit is set.\n";
 				}
 				else {echo "Detected online host seems has been offline, holding state of low emit\n";}
@@ -112,16 +108,14 @@
 		$off_count++;
 		echo "No online host detected in this loop. Checking current emit state...\n";
 		
-		if ($low_emit)
-		{echo "Low emit. No changes needed.\n";}
-		else
-		{echo "High emit. State will be change after ".($offline_retry - $off_count)." more loops\n";}
+		if ($low_emit) {echo "Low emit. No changes needed.\n";}
+		else {echo "High emit. State will be change after ".($offline_retry - $off_count)." more loops\n";}
 
 		if ($off_count >= $offline_retry && $low_emit == false)
 		{
 			echo "Changing state into low emit...\n";
 			$run = ssh2_exec($connection, "uci set wireless.@wifi-device[$device_id].txpower=$low_rate; uci commit wireless; wifi down radio$device_id; wifi up radio$device_id");
-       		fclose($run);
+       			fclose($run);
 			$low_emit = true;
 			echo "Low emit is set.\n";
 		}
